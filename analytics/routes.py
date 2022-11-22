@@ -40,7 +40,8 @@ def get_aqi_for_user_cities(parameter):
 
   for city in cities:
     city_data = Analytics().get_latest_data(city)
-    response.append({"city": city_data["city"].capitalize(), parameter: city_data.get(parameter)})
+    if city_data:
+      response.append({"city": city_data["city"].capitalize(), parameter: city_data.get(parameter)})
   return response
 
 
