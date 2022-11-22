@@ -2,58 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>{{ title }}</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+  <title>Pollution</title>
+  <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
 </head>
 
 <body>
   <center>
-    <h1>{{ title }}</h1>
-    <canvas id="chart" width="600" height="400"></canvas>
+    <h1>Data for Comparision of Pollution Parameters between cities</h1>
+    <canvas id="aqi" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="co" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="dew" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="h" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="no2" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="p" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="pm10" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="pm25" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="t" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="w" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
     <script>
     window.addEventListener('load', async function main(){
-        console.log('here')
-        response =await fetch('analytics?city=pune');
-        data = await response.json();
-        
-            new_data = []
-            data.forEach(d => {
-                temp = {};
-                // temp["time"]= d["timestamp"]["$date"],
-                temp["y"]= d["aqi"];
-                temp["x"] = d["co"]
-                new_data.push(temp)
-            });
-            console.log({data: new_data});
-          
-      // bar chart data
-      const cfg = {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                data: new_data
-            }]
-        }
-        }
-
-      Chart.defaults.global.animationSteps = 50;
-      Chart.defaults.global.tooltipYPadding = 16;
-      Chart.defaults.global.tooltipCornerRadius = 0;
-      Chart.defaults.global.tooltipTitleFontStyle = "normal";
-      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-      Chart.defaults.global.animationEasing = "easeOutBounce";
-      Chart.defaults.global.responsive = false;
-      Chart.defaults.global.scaleLineColor = "black";
-      Chart.defaults.global.scaleFontSize = 16;
-
-      // get bar chart canvas
-      var mychart = document.getElementById("chart").getContext("2d");
-      // draw bar chart 
-      new Chart(mychart, cfg);  
-
-        
-      
+        parameters = ["aqi", "co", "dew", "h", "no2", "o3", "p", "pm10", "pm25","t", "w"]
+        parameters.forEach(param => renderChart(param));
     });  
+
+    async function renderChart(parameter){
+        response=await fetch(`/analytics/${parameter}`);
+        data = await response.json();
+        console.log(data);
+        const cfg = {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    label: parameter.toUpperCase(),
+                    data: data,
+                    parsing: {
+                        xAxisKey: 'city',
+                        yAxisKey: parameter
+                        }
+                    }
+                ]
+            }
+        }
+        var mychart = document.getElementById(parameter);
+        new Chart(mychart, cfg);
+    }
     </script>
   </center>
 </body>

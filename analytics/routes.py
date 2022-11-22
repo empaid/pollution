@@ -1,8 +1,8 @@
-from flask import Flask, render_template
-from __main__ import app
+from flask import Flask, render_template, request, session
 from analytics.models import Analytics
+from __main__ import app
 from app import login_required
-
+from bson.json_util import dumps, loads
 
 labels = [
     'JAN', 'FEB', 'MAR', 'APR',
@@ -28,9 +28,23 @@ def get():
   # return render_template('dashboard.html', data=data)
   return data
 
-@app.route('/display', methods=['GET'])
+@app.route('/analytics/<parameter>', methods=['GET'])
+@login_required
+def get_aqi_for_user_cities(parameter):
+  if parameter not in ["aqi", "co", "dew", "h", "no2", "o3", "p", "pm10", "pm25","t", "w"]:
+    return None
+  cities = session['user']['cities']
+  response = []
+  if not cities or len(cities)==0:
+    return None
+
+  for city in cities:
+    city_data = Analytics().get_latest_data(city)
+    response.append({"city": city_data["city"].capitalize(), parameter: city_data.get(parameter)})
+  return response
+
+
+@app.route('/dashboard/', methods=['GET'])
 @login_required
 def display():
-  bar_labels=labels
-  bar_values=values
-  return render_template('graph.html', title='Bitcoin Monthly Price in USD', max=17000, labels=bar_labels, values=bar_values)
+  return render_template('graph.html')

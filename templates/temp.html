@@ -1,0 +1,11 @@
+{% for item in data %}
+                    {
+                        {% for key, value in item.items() %}
+                        {%if key!="_id"%}
+                            "{{key}}":{% if value.isnumeric() %}{{value}}{% else %}"{{value}}"{% endif %},
+                        {% endif %}
+                        {% endfor %}
+                    },
+                {% endfor %}
+            ]
+          }]

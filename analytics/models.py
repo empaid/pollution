@@ -5,6 +5,7 @@ from app import db
 import uuid
 import json
 from bson.json_util import dumps, loads
+from __main__ import app
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -24,3 +25,9 @@ class Analytics:
     # data = loads(dumps(analytics))
     # print(type(data))
     return dumps(analytics)
+
+  def get_latest_data(self, city):
+    analytics = db.analytics.find_one({
+      "city": city
+    }, sort = [("timestamp", -1)]);
+    return analytics
