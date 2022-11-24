@@ -21,3 +21,7 @@ def addcity():
 @app.route('/user/removecity', methods=['GET'])
 def removecity():
   return User().removecity()
+
+@app.route('/user/cities', methods=['GET'])
+def cities():
+  return User().cities()

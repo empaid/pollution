@@ -75,3 +75,6 @@ class User:
       session['user'] = user
       return jsonify({ "success": "City Removed Successfully" }), 200
     return jsonify({ "error": "Removing city failed" }), 400
+
+  def cities(self):
+    return session['user']['cities']

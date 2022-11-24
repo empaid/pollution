@@ -20,10 +20,11 @@
     <canvas id="pm25" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
     <canvas id="t" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
     <canvas id="w" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
+    <canvas id="time" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
     <script>
     window.addEventListener('load', async function main(){
         parameters = ["aqi", "co", "dew", "h", "no2", "o3", "p", "pm10", "pm25","t", "w"]
-        parameters.forEach(param => renderChart(param));
+        // parameters.forEach(param => renderChart(param));
     });  
 
     async function renderChart(parameter){
@@ -47,6 +48,28 @@
         var mychart = document.getElementById(parameter);
         new Chart(mychart, cfg);
     }
+    async function temp(){
+    response=await fetch(`/analytics?city=pune`);
+    data = await response.json();
+    data.forEach(d => d['timestamp'] = (new Date(d['timestamp']["$date"])).toLocaleDateString());
+    console.log(data);
+    const cfg = {
+            type: 'line',
+            data: {
+                datasets: [{
+                    data: data,
+                    parsing: {
+                        xAxisKey: 'timestamp',
+                        yAxisKey: 'aqi'
+                        }
+                    }
+                ]
+            }
+        }
+        var mychart = document.getElementById("time");
+        new Chart(mychart, cfg);
+      }
+      temp();
     </script>
   </center>
 </body>

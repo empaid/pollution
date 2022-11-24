@@ -107,15 +107,15 @@
                                 <span class="hide-menu">Today's Comparision</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.html"
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cityanalytics.html"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Analytics over Time</span>
                             </a>
                         </li>
-                        <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cityanalytics.html"
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="addcity.html"
                                 aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">Add City</span>
@@ -128,6 +128,7 @@
                                 <span class="hide-menu">Remove City</span>
                             </a>
                         </li>
+                        
                     </ul>
 
                 </nav>
@@ -148,9 +149,18 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Add City</h4>
+                        <h4 class="page-title"></h4>
                     </div>
+                    <div class="dropdown" >
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Select City
+                        </button>
+                        <ul class="dropdown-menu" id="citylist">
+                          
+                        </ul>
+                      </div>
                 </div>
+
                 <!-- /.col-lg-12 -->
             </div>
             <!-- ============================================================== -->
@@ -160,47 +170,92 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <div class="container-fluid">
-                    <!-- ============================================================== -->
-                    <!-- Start Page Content -->
-                    <!-- ============================================================== -->
-                    <!-- Row -->
-                    <div class="row">
-                        <!-- Column -->
-                        <div class="col-lg-8 col-xlg-9 col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form class="form-horizontal form-material" name="addcity_form">
-                                        <div class="form-group mb-4" >
-                                            <label class="col-md-12 p-0">City Name</label>
-                                            <div class="col-md-12 border-bottom p-0">
-                                                <input type="text" placeholder="Pune"
-                                                    class="form-control p-0 border-0" name="city"> </div>
-                                        </div>
-                                        <p class="text-danger error error--hidden"></p>
-                                        <p class="text-success success error--hidden"></p>
-                                        <div class="form-group mb-4">
-                                            <div class="col-sm-12">
-                                                <button class="btn btn-success" type="submit">Add City</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                <!-- ============================================================== -->
+                <!-- Three charts -->
+                <!-- ============================================================== -->
+                <!--  -->
+                <!-- ============================================================== -->
+                <!-- PRODUCTS YEARLY SALES -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Air Quality Index</h3>
+                                <canvas id="aqi" width="400" height="100" aria-label="AQI for cities" role="img"></canvas>
                         </div>
-                        <!-- Column -->
                     </div>
-                    <!-- Row -->
-                    <!-- ============================================================== -->
-                    <!-- End PAge Content -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Right sidebar -->
-                    <!-- ============================================================== -->
-                    <!-- .right-sidebar -->
-                    <!-- ============================================================== -->
-                    <!-- End Right sidebar -->
-                    <!-- ============================================================== -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Carbon Monoxide</h3>
+                                <canvas id="co" width="400" height="100" aria-label="Co for cities" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Dew</h3>
+                                <canvas id="dew" width="400" height="100" aria-label="dew for cities" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Humidity</h3>
+                                <canvas id="h" width="400" height="100" aria-label="Humidity for cities" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Nitrogen Dioxide</h3>
+                                <canvas id="no2" width="400" height="100" aria-label="NO2 for cities" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Pressure</h3>
+                                <canvas id="p" width="400" height="100" aria-label="Pressure value for cities" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">PM2.5 Value</h3>
+                                <canvas id="pm25" width="400" height="100" aria-label="PM2.5 value for cities" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">PM10 Value</h3>
+                                <canvas id="pm10" width="400" height="100" aria-label="PM10 value for cities" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Temperature</h3>
+                                <canvas id="t" width="400" height="100" aria-label="Temperature value for cities" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Wind</h3>
+                                <canvas id="w" width="400" height="100" aria-label="Wind value for cities" role="img"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -239,11 +294,48 @@
     <script src="js/custom.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/scripts.js"></script>
+
     <!--This page JavaScript -->
     <!--chartis chart-->
     <script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
     <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="js/pages/dashboards/dashboard1.js"></script>
+    <script>
+        
+        window.addEventListener('load', async function main(){
+            const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+        });
+        let city = params.city; 
+            parameters = ["aqi", "co", "dew", "h", "no2", "o3", "p", "pm10", "pm25","t", "w"]
+            parameters.forEach(param => renderChart(param, city));
+        });  
+    
+        async function renderChart(parameter, city){
+            response=await fetch(`/analytics?city=${city}`);
+            data = await response.json();
+            data.forEach(d => d['timestamp'] = (new Date(d['timestamp']["$date"])).toLocaleString());
+            const cfg = {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: parameter.toUpperCase(),
+                        data: data,
+                        parsing: {
+                            xAxisKey: 'timestamp',
+                            yAxisKey: parameter
+                            }
+                        }
+                    ]
+                }
+            }
+            var mychart = document.getElementById(parameter);
+            new Chart(mychart, cfg);
+        }
+        </script>
+
+
+
 </body>
 
 </html>

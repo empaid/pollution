@@ -91,3 +91,28 @@ $("form[name=removecity_form").submit(function(e) {
 
   e.preventDefault();
 });
+var getLocation = function(href) {
+  var l = document.createElement("a");
+  l.href = href;
+  return l;
+};
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+});
+let city = params.city; 
+$(document).ready(async function(){
+    var l = getLocation(window.location.search);
+    if(l.pathname.includes("static/cityanalytics")){
+    response = await fetch('/user/cities') 
+    cities = await response.json();
+    console.log(cities)
+    cities.forEach(city => $("#citylist").append(`<li><a class="dropdown-item" href="cityanalytics.html?city=`+city+`">`+city.toUpperCase()+`</a></li>`));
+    if(city){
+      $('.page-title').text('Analytics over Time for '+city.toUpperCase());
+    }
+    else{
+      $('.page-title').text('Select City from Below Drop Down');
+    }
+  } 
+   
+});
