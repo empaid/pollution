@@ -28,7 +28,7 @@ from analytics import routes
 def home():
   if 'logged_in' in session:
       return redirect('/static/dashboard.html')
-  return render_template('home.html')
+  return redirect('/static/index.html')
 
 
 if __name__ == '__main__':
