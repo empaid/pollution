@@ -13,3 +13,11 @@ def signout():
 @app.route('/user/login', methods=['POST'])
 def login():
   return User().login()
+
+@app.route('/user/addcity', methods=['GET'])
+def addcity():
+  return User().addcity()
+
+@app.route('/user/removecity', methods=['GET'])
+def removecity():
+  return User().removecity()

@@ -26,6 +26,8 @@ from user import routes
 from analytics import routes
 @app.route('/')
 def home():
+  if 'logged_in' in session:
+      return redirect('/static/dashboard.html')
   return render_template('home.html')
 
 

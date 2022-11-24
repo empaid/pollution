@@ -19,7 +19,8 @@ class User:
       "_id": uuid.uuid4().hex,
       "name": request.form.get('name'),
       "email": request.form.get('email'),
-      "password": request.form.get('password')
+      "password": request.form.get('password'),
+      "cities": []
     }
 
     # Encrypt the password
@@ -48,3 +49,29 @@ class User:
       return self.start_session(user)
     
     return jsonify({ "error": "Invalid login credentials" }), 401
+
+  def addcity(self):
+    city = request.args.get('city')
+    if not city:
+      return jsonify({ "error": "Fill City Name" }), 400
+    city = city.lower()
+    if city in session['user']['cities']:
+      return jsonify({ "error": "City Already Present" }), 401
+    user = db.users.find_one_and_update({'_id': session['user']['_id']}, {'$push': {'cities': city}})
+    if user:
+      session['user'] = user
+      return jsonify({ "success": "City Added Successfully" }), 200
+    return jsonify({ "error": "Adding city failed" }), 400
+
+  def removecity(self):
+    city = request.args.get('city')
+    if not city:
+      return jsonify({ "error": "Fill City Name" }), 400
+    city = city.lower()
+    if city not in session['user']['cities']:
+      return jsonify({ "error": "You don't have this city added" }), 401
+    user = db.users.find_one_and_update({'_id': session['user']['_id']}, {'$pull': {'cities': city}})
+    if user:
+      session['user'] = user
+      return jsonify({ "success": "City Removed Successfully" }), 200
+    return jsonify({ "error": "Removing city failed" }), 400
